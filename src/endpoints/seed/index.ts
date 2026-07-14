@@ -48,9 +48,9 @@ export const seed = async ({
     globals.map((global) =>
       payload.updateGlobal({
         slug: global,
-        data: {
-          navItems: [],
-        },
+        // Reset nav-based globals; data shape varies per global so cast for the clear step.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: { navItems: [] } as any,
         depth: 0,
         context: {
           disableRevalidate: true,
