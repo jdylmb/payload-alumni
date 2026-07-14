@@ -18,6 +18,7 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { AboutPage } from './globals/AboutPage/config'
+import { AssociationPage } from './globals/AssociationPage/config'
 import { DonorsPage } from './globals/DonorsPage/config'
 import { EventsPage } from './globals/EventsPage/config'
 import { HomePage } from './globals/HomePage/config'
@@ -87,7 +88,16 @@ export default buildConfig({
     Users,
   ],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, HomePage, AboutPage, ServicesPage, EventsPage, DonorsPage],
+  globals: [
+    Header,
+    Footer,
+    HomePage,
+    AboutPage,
+    ServicesPage,
+    EventsPage,
+    DonorsPage,
+    AssociationPage,
+  ],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,

@@ -129,6 +129,7 @@ export interface Config {
     servicesPage: ServicesPage;
     eventsPage: EventsPage;
     donorsPage: DonorsPage;
+    associationPage: AssociationPage;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -138,6 +139,7 @@ export interface Config {
     servicesPage: ServicesPageSelect<false> | ServicesPageSelect<true>;
     eventsPage: EventsPageSelect<false> | EventsPageSelect<true>;
     donorsPage: DonorsPageSelect<false> | DonorsPageSelect<true>;
+    associationPage: AssociationPageSelect<false> | AssociationPageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -2353,6 +2355,40 @@ export interface DonorsPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "associationPage".
+ */
+export interface AssociationPage {
+  id: number;
+  pageHeader: {
+    caption?: string | null;
+    title: string;
+    description?: string | null;
+  };
+  intro?: {
+    heading?: string | null;
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image?: (number | null) | Media;
+  };
+  orgChartTitle?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2624,6 +2660,30 @@ export interface DonorsPageSelect<T extends boolean = true> {
               label?: T;
             };
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "associationPage_select".
+ */
+export interface AssociationPageSelect<T extends boolean = true> {
+  pageHeader?:
+    | T
+    | {
+        caption?: T;
+        title?: T;
+        description?: T;
+      };
+  intro?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        image?: T;
+      };
+  orgChartTitle?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
