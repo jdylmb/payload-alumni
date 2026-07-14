@@ -72,6 +72,7 @@ export interface Config {
     news: News;
     alumni: Alumnus;
     'team-members': TeamMember;
+    'alumni-registrations': AlumniRegistration;
     media: Media;
     categories: Category;
     users: User;
@@ -97,6 +98,7 @@ export interface Config {
     news: NewsSelect<false> | NewsSelect<true>;
     alumni: AlumniSelect<false> | AlumniSelect<true>;
     'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
+    'alumni-registrations': AlumniRegistrationsSelect<false> | AlumniRegistrationsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -120,12 +122,14 @@ export interface Config {
     footer: Footer;
     homePage: HomePage;
     aboutPage: AboutPage;
+    servicesPage: ServicesPage;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     homePage: HomePageSelect<false> | HomePageSelect<true>;
     aboutPage: AboutPageSelect<false> | AboutPageSelect<true>;
+    servicesPage: ServicesPageSelect<false> | ServicesPageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -898,6 +902,44 @@ export interface TeamMember {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "alumni-registrations".
+ */
+export interface AlumniRegistration {
+  id: number;
+  fullName: string;
+  email: string;
+  phone?: string | null;
+  dateOfBirth?: string | null;
+  sex?: ('male' | 'female' | 'unspecified') | null;
+  civilStatus?: ('single' | 'married' | 'widowed' | 'separated') | null;
+  nationality?: string | null;
+  currentAddress?: string | null;
+  permanentAddress?: string | null;
+  degrees?:
+    | {
+        level: 'HS' | 'BS' | 'MS' | 'PhD';
+        course?: string | null;
+        yearGraduated?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  paymentMethod?: ('gcash' | 'bank' | 'counter') | null;
+  referenceNumber?: string | null;
+  amount?: number | null;
+  proofOfPayment?: (number | null) | Media;
+  consent?: {
+    databaseEncoding?: boolean | null;
+    alumniId?: boolean | null;
+    homecoming?: boolean | null;
+    publication?: boolean | null;
+    forwarding?: boolean | null;
+  };
+  status?: ('pending' | 'approved' | 'rejected') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1105,6 +1147,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'team-members';
         value: number | TeamMember;
+      } | null)
+    | ({
+        relationTo: 'alumni-registrations';
+        value: number | AlumniRegistration;
       } | null)
     | ({
         relationTo: 'media';
@@ -1396,6 +1442,45 @@ export interface TeamMembersSelect<T extends boolean = true> {
   org?: T;
   level?: T;
   order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "alumni-registrations_select".
+ */
+export interface AlumniRegistrationsSelect<T extends boolean = true> {
+  fullName?: T;
+  email?: T;
+  phone?: T;
+  dateOfBirth?: T;
+  sex?: T;
+  civilStatus?: T;
+  nationality?: T;
+  currentAddress?: T;
+  permanentAddress?: T;
+  degrees?:
+    | T
+    | {
+        level?: T;
+        course?: T;
+        yearGraduated?: T;
+        id?: T;
+      };
+  paymentMethod?: T;
+  referenceNumber?: T;
+  amount?: T;
+  proofOfPayment?: T;
+  consent?:
+    | T
+    | {
+        databaseEncoding?: T;
+        alumniId?: T;
+        homecoming?: T;
+        publication?: T;
+        forwarding?: T;
+      };
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -2025,6 +2110,44 @@ export interface AboutPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "servicesPage".
+ */
+export interface ServicesPage {
+  id: number;
+  pageHeader: {
+    caption?: string | null;
+    title: string;
+    description?: string | null;
+  };
+  benefitsHeading?: string | null;
+  benefitsIntro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  benefits?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  privacyNotice?: string | null;
+  formIntro?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2177,6 +2300,32 @@ export interface AboutPageSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "servicesPage_select".
+ */
+export interface ServicesPageSelect<T extends boolean = true> {
+  pageHeader?:
+    | T
+    | {
+        caption?: T;
+        title?: T;
+        description?: T;
+      };
+  benefitsHeading?: T;
+  benefitsIntro?: T;
+  benefits?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  privacyNotice?: T;
+  formIntro?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

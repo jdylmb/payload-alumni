@@ -5,6 +5,7 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Alumni } from './collections/Alumni'
+import { AlumniRegistrations } from './collections/AlumniRegistrations'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { News } from './collections/News'
@@ -16,6 +17,7 @@ import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { AboutPage } from './globals/AboutPage/config'
 import { HomePage } from './globals/HomePage/config'
+import { ServicesPage } from './globals/ServicesPage/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -67,9 +69,19 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
-  collections: [Pages, Posts, News, Alumni, TeamMembers, Media, Categories, Users],
+  collections: [
+    Pages,
+    Posts,
+    News,
+    Alumni,
+    TeamMembers,
+    AlumniRegistrations,
+    Media,
+    Categories,
+    Users,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, HomePage, AboutPage],
+  globals: [Header, Footer, HomePage, AboutPage, ServicesPage],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,
