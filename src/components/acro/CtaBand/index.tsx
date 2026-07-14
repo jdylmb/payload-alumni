@@ -14,9 +14,8 @@ export type CtaBandData = {
 export const CtaBand: React.FC<{ data?: CtaBandData | null }> = ({ data }) => {
   if (!data || (!data.heading && !data.description)) return null
 
-  const hasPrimary = data.primaryCta?.label && (data.primaryCta?.url || data.primaryCta?.reference)
-  const hasSecondary =
-    data.secondaryCta?.label && (data.secondaryCta?.url || data.secondaryCta?.reference)
+  const hasPrimary = data.primaryCta?.label && data.primaryCta?.url
+  const hasSecondary = data.secondaryCta?.label && data.secondaryCta?.url
 
   return (
     <section className="bg-green-dark">

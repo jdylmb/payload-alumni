@@ -10,9 +10,6 @@ const collectionsToClear: CollectionSlug[] = [
   'team-members',
   'alumni-registrations',
   'contact-submissions',
-  'pages',
-  'posts',
-  'categories',
 ]
 
 type SeedFile = { name: string; data: Buffer; mimetype: string; size: number }
@@ -336,7 +333,7 @@ export const seed = async ({
   }
 
   payload.logger.info('— Seeding globals...')
-  const cLink = (label: string, url: string) => ({ link: { type: 'custom', label, url } })
+  const cLink = (label: string, url: string) => ({ link: { label, url } })
 
   await payload.updateGlobal({
     slug: 'header',
@@ -354,7 +351,7 @@ export const seed = async ({
         cLink('Alumni', '/association'),
         cLink('Contact', '/contact'),
       ],
-      registerButton: { label: 'Register', link: { type: 'custom', url: '/services' } },
+      registerButton: { label: 'Register', link: { url: '/services' } },
     } as never,
   })
 
@@ -381,21 +378,21 @@ export const seed = async ({
           subheading:
             'Register with ACRO and unlock exclusive alumni benefits and lifelong connections.',
           ctaLabel: 'Register Now',
-          link: { type: 'custom', url: '/services' },
+          link: { url: '/services' },
         },
         {
           image: hero2.id,
           heading: 'Share Your Story',
           subheading: 'Contribute news, achievements, and updates to inspire fellow Viscans.',
           ctaLabel: 'Get Involved',
-          link: { type: 'custom', url: '/contact' },
+          link: { url: '/contact' },
         },
         {
           image: hero3.id,
           heading: 'Join Your Chapter',
           subheading: 'Connect with alumni chapters across the Philippines and beyond.',
           ctaLabel: 'Find a Chapter',
-          link: { type: 'custom', url: '/association' },
+          link: { url: '/association' },
         },
       ],
       pageHeader: {
@@ -487,8 +484,8 @@ export const seed = async ({
         heading: "Don't Miss Out",
         description:
           'Stay connected and never miss an alumni event. Register with ACRO to receive invitations and updates.',
-        primaryCta: { type: 'custom', label: 'Register', url: '/services' },
-        secondaryCta: { type: 'custom', label: 'Contact Us', url: '/contact' },
+        primaryCta: { label: 'Register', url: '/services' },
+        secondaryCta: { label: 'Contact Us', url: '/contact' },
       },
     } as never,
   })
@@ -536,7 +533,7 @@ export const seed = async ({
         heading: 'Ready to make an impact?',
         description:
           'Contact ACRO to learn more about giving opportunities and how your donation can change lives.',
-        primaryCta: { type: 'custom', label: 'Get in Touch', url: '/contact' },
+        primaryCta: { label: 'Get in Touch', url: '/contact' },
       },
     } as never,
   })

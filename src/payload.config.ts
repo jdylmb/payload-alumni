@@ -6,14 +6,11 @@ import { fileURLToPath } from 'url'
 
 import { Alumni } from './collections/Alumni'
 import { AlumniRegistrations } from './collections/AlumniRegistrations'
-import { Categories } from './collections/Categories'
 import { ContactSubmissions } from './collections/ContactSubmissions'
 import { Donors } from './collections/Donors'
 import { Events } from './collections/Events'
 import { Media } from './collections/Media'
 import { News } from './collections/News'
-import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
 import { TeamMembers } from './collections/TeamMembers'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
@@ -77,8 +74,6 @@ export default buildConfig({
     },
   }),
   collections: [
-    Pages,
-    Posts,
     News,
     Alumni,
     Events,
@@ -87,7 +82,6 @@ export default buildConfig({
     AlumniRegistrations,
     ContactSubmissions,
     Media,
-    Categories,
     Users,
   ],
   cors: [getServerSideURL()].filter(Boolean),
