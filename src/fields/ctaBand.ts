@@ -17,8 +17,8 @@ export const ctaBand: CtaBandType = (overrides = {}) => {
     fields: [
       { name: 'heading', type: 'text' },
       { name: 'description', type: 'textarea' },
-      link({ appearances: false, overrides: { name: 'primaryCta' } }),
-      link({ appearances: false, overrides: { name: 'secondaryCta' } }),
+      link({ appearances: false, optional: true, overrides: { name: 'primaryCta' } }),
+      link({ appearances: false, optional: true, overrides: { name: 'secondaryCta' } }),
     ],
   }
 

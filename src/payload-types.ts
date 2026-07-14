@@ -2288,10 +2288,10 @@ export interface EventsPage {
     title: string;
     description?: string | null;
   };
-  ctaBand: {
+  ctaBand?: {
     heading?: string | null;
     description?: string | null;
-    primaryCta: {
+    primaryCta?: {
       type?: ('reference' | 'custom') | null;
       newTab?: boolean | null;
       reference?:
@@ -2304,9 +2304,9 @@ export interface EventsPage {
             value: number | Post;
           } | null);
       url?: string | null;
-      label: string;
+      label?: string | null;
     };
-    secondaryCta: {
+    secondaryCta?: {
       type?: ('reference' | 'custom') | null;
       newTab?: boolean | null;
       reference?:
@@ -2319,7 +2319,7 @@ export interface EventsPage {
             value: number | Post;
           } | null);
       url?: string | null;
-      label: string;
+      label?: string | null;
     };
   };
   updatedAt?: string | null;
@@ -2349,10 +2349,10 @@ export interface DonorsPage {
   honorRollCaption?: string | null;
   honorRollTitle?: string | null;
   honorRollDescription?: string | null;
-  ctaBand: {
+  ctaBand?: {
     heading?: string | null;
     description?: string | null;
-    primaryCta: {
+    primaryCta?: {
       type?: ('reference' | 'custom') | null;
       newTab?: boolean | null;
       reference?:
@@ -2365,9 +2365,9 @@ export interface DonorsPage {
             value: number | Post;
           } | null);
       url?: string | null;
-      label: string;
+      label?: string | null;
     };
-    secondaryCta: {
+    secondaryCta?: {
       type?: ('reference' | 'custom') | null;
       newTab?: boolean | null;
       reference?:
@@ -2380,7 +2380,7 @@ export interface DonorsPage {
             value: number | Post;
           } | null);
       url?: string | null;
-      label: string;
+      label?: string | null;
     };
   };
   updatedAt?: string | null;

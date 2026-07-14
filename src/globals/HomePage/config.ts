@@ -41,7 +41,7 @@ export const HomePage: GlobalConfig = {
                   name: 'ctaLabel',
                   type: 'text',
                 },
-                link({ appearances: false, disableLabel: true }),
+                link({ appearances: false, disableLabel: true, optional: true }),
               ],
             },
           ],
@@ -75,7 +75,12 @@ export const HomePage: GlobalConfig = {
               type: 'text',
               defaultValue: 'View All News',
             },
-            link({ appearances: false, disableLabel: true, overrides: { name: 'newsViewAllLink' } }),
+            link({
+              appearances: false,
+              disableLabel: true,
+              optional: true,
+              overrides: { name: 'newsViewAllLink' },
+            }),
           ],
         },
         {
@@ -110,6 +115,7 @@ export const HomePage: GlobalConfig = {
             link({
               appearances: false,
               disableLabel: true,
+              optional: true,
               overrides: { name: 'alumniViewAllLink' },
             }),
           ],
