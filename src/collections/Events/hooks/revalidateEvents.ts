@@ -2,19 +2,32 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 
 import { revalidatePath } from 'next/cache'
 
-export const revalidateEvents: CollectionAfterChangeHook = ({
+import type { Event } from '../../../payload-types'
+
+// Only revalidate for published docs — see revalidateNews for why draft
+// autosave must not call revalidatePath during the admin create render.
+export const revalidateEvents: CollectionAfterChangeHook<Event> = ({
   doc,
+  previousDoc,
   req: { payload, context },
 }) => {
   if (!context.disableRevalidate) {
-    payload.logger.info(`Revalidating events page`)
-    revalidatePath('/events')
+    if (doc._status === 'published') {
+      payload.logger.info(`Revalidating events page`)
+      revalidatePath('/events')
+    }
+    if (previousDoc?._status === 'published' && doc._status !== 'published') {
+      revalidatePath('/events')
+    }
   }
 
   return doc
 }
 
-export const revalidateEventsDelete: CollectionAfterDeleteHook = ({ req: { context }, doc }) => {
+export const revalidateEventsDelete: CollectionAfterDeleteHook<Event> = ({
+  req: { context },
+  doc,
+}) => {
   if (!context.disableRevalidate) {
     revalidatePath('/events')
   }
