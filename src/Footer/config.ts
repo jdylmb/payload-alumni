@@ -10,6 +10,17 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
+      name: 'brand',
+      type: 'text',
+      defaultValue: 'ACRO',
+      label: 'Brand',
+    },
+    {
+      name: 'tagline',
+      type: 'text',
+      label: 'Tagline',
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [
@@ -24,6 +35,11 @@ export const Footer: GlobalConfig = {
           RowLabel: '@/Footer/RowLabel#RowLabel',
         },
       },
+    },
+    {
+      name: 'copyright',
+      type: 'text',
+      label: 'Copyright',
     },
   ],
   hooks: {

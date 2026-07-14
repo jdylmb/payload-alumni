@@ -6,7 +6,6 @@ import React, { useEffect, useState } from 'react'
 
 import type { Header } from '@/payload-types'
 
-import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
 
 interface HeaderClientProps {
@@ -30,10 +29,21 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   }, [headerTheme])
 
   return (
-    <header className="container relative z-20   " {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="py-8 flex justify-between">
-        <Link href="/">
-          <Logo loading="eager" priority="high" className="invert dark:invert-0" />
+    <header
+      className="sticky top-0 z-30 border-b border-black/5 bg-surface-white"
+      {...(theme ? { 'data-theme': theme } : {})}
+    >
+      <div className="mx-auto flex h-[72px] w-full max-w-[1440px] items-center justify-between px-6 md:px-14">
+        <Link href="/" className="flex items-center gap-2.5">
+          <span className="font-serif text-2xl font-bold leading-none text-green-dark">
+            {data?.logoPrimary || 'ACRO'}
+          </span>
+          {(data?.logoSubtitle1 || data?.logoSubtitle2) && (
+            <span className="flex flex-col text-[9px] font-semibold leading-tight tracking-wider text-brand-text-secondary">
+              {data?.logoSubtitle1 && <span>{data.logoSubtitle1}</span>}
+              {data?.logoSubtitle2 && <span>{data.logoSubtitle2}</span>}
+            </span>
+          )}
         </Link>
         <HeaderNav data={data} />
       </div>

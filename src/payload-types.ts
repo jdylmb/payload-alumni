@@ -1637,6 +1637,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  logoPrimary?: string | null;
+  logoSubtitle1?: string | null;
+  logoSubtitle2?: string | null;
   navItems?:
     | {
         link: {
@@ -1657,6 +1660,23 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
+  registerButton?: {
+    label?: string | null;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+    };
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1666,6 +1686,8 @@ export interface Header {
  */
 export interface Footer {
   id: number;
+  brand?: string | null;
+  tagline?: string | null;
   navItems?:
     | {
         link: {
@@ -1686,6 +1708,7 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  copyright?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1694,6 +1717,9 @@ export interface Footer {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  logoPrimary?: T;
+  logoSubtitle1?: T;
+  logoSubtitle2?: T;
   navItems?:
     | T
     | {
@@ -1707,6 +1733,19 @@ export interface HeaderSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  registerButton?:
+    | T
+    | {
+        label?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1717,6 +1756,8 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
+  brand?: T;
+  tagline?: T;
   navItems?:
     | T
     | {
@@ -1731,6 +1772,7 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  copyright?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
