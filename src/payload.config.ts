@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url'
 import { Alumni } from './collections/Alumni'
 import { AlumniRegistrations } from './collections/AlumniRegistrations'
 import { Categories } from './collections/Categories'
+import { ContactSubmissions } from './collections/ContactSubmissions'
 import { Donors } from './collections/Donors'
 import { Events } from './collections/Events'
 import { Media } from './collections/Media'
@@ -19,6 +20,7 @@ import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { AboutPage } from './globals/AboutPage/config'
 import { AssociationPage } from './globals/AssociationPage/config'
+import { ContactPage } from './globals/ContactPage/config'
 import { DonorsPage } from './globals/DonorsPage/config'
 import { EventsPage } from './globals/EventsPage/config'
 import { HomePage } from './globals/HomePage/config'
@@ -83,6 +85,7 @@ export default buildConfig({
     Donors,
     TeamMembers,
     AlumniRegistrations,
+    ContactSubmissions,
     Media,
     Categories,
     Users,
@@ -97,6 +100,7 @@ export default buildConfig({
     EventsPage,
     DonorsPage,
     AssociationPage,
+    ContactPage,
   ],
   plugins,
   secret: process.env.PAYLOAD_SECRET,

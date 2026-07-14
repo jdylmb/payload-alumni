@@ -75,6 +75,7 @@ export interface Config {
     donors: Donor;
     'team-members': TeamMember;
     'alumni-registrations': AlumniRegistration;
+    'contact-submissions': ContactSubmission;
     media: Media;
     categories: Category;
     users: User;
@@ -103,6 +104,7 @@ export interface Config {
     donors: DonorsSelect<false> | DonorsSelect<true>;
     'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
     'alumni-registrations': AlumniRegistrationsSelect<false> | AlumniRegistrationsSelect<true>;
+    'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -130,6 +132,7 @@ export interface Config {
     eventsPage: EventsPage;
     donorsPage: DonorsPage;
     associationPage: AssociationPage;
+    contactPage: ContactPage;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -140,6 +143,7 @@ export interface Config {
     eventsPage: EventsPageSelect<false> | EventsPageSelect<true>;
     donorsPage: DonorsPageSelect<false> | DonorsPageSelect<true>;
     associationPage: AssociationPageSelect<false> | AssociationPageSelect<true>;
+    contactPage: ContactPageSelect<false> | ContactPageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -1001,6 +1005,19 @@ export interface AlumniRegistration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions".
+ */
+export interface ContactSubmission {
+  id: number;
+  name: string;
+  email: string;
+  subject?: string | null;
+  message: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1220,6 +1237,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'alumni-registrations';
         value: number | AlumniRegistration;
+      } | null)
+    | ({
+        relationTo: 'contact-submissions';
+        value: number | ContactSubmission;
       } | null)
     | ({
         relationTo: 'media';
@@ -1579,6 +1600,18 @@ export interface AlumniRegistrationsSelect<T extends boolean = true> {
         forwarding?: T;
       };
   status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions_select".
+ */
+export interface ContactSubmissionsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  subject?: T;
+  message?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -2389,6 +2422,37 @@ export interface AssociationPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contactPage".
+ */
+export interface ContactPage {
+  id: number;
+  pageHeader: {
+    caption?: string | null;
+    title: string;
+    description?: string | null;
+  };
+  infoTitle?: string | null;
+  infoDescription?: string | null;
+  contactInfo?: {
+    address?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    hours?: string | null;
+    socials?:
+      | {
+          platform?: string | null;
+          url?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  mapImage?: (number | null) | Media;
+  formTitle?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2684,6 +2748,41 @@ export interface AssociationPageSelect<T extends boolean = true> {
         image?: T;
       };
   orgChartTitle?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contactPage_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+  pageHeader?:
+    | T
+    | {
+        caption?: T;
+        title?: T;
+        description?: T;
+      };
+  infoTitle?: T;
+  infoDescription?: T;
+  contactInfo?:
+    | T
+    | {
+        address?: T;
+        phone?: T;
+        email?: T;
+        hours?: T;
+        socials?:
+          | T
+          | {
+              platform?: T;
+              url?: T;
+              id?: T;
+            };
+      };
+  mapImage?: T;
+  formTitle?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
