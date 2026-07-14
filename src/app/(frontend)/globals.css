@@ -44,7 +44,8 @@
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 86rem;
   --font-mono: var(--font-geist-mono);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
 }
 
 @layer utilities {
@@ -123,6 +124,18 @@
   --success: oklch(78% 0.08 200deg);
   --warning: oklch(89% 0.1 75deg);
   --error: oklch(75% 0.15 25deg);
+
+  /* ACRO brand palette (from untitled.pen) */
+  --green-dark: #0b5f2e;
+  --green-mid: #1a7a3e;
+  --green-light: #e8f0ea;
+  --gold: #c5a83d;
+  --gold-light: #f5edd4;
+  --surface: #f5f3ee;
+  --surface-white: #ffffff;
+  --dark-bg: #0a1f14;
+  --brand-text: #1b3a28;
+  --brand-text-secondary: #4a6b52;
 }
 
 [data-theme='dark'] {
@@ -203,6 +216,18 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+
+  /* ACRO brand palette utilities: bg-green-dark, text-gold, bg-surface, etc. */
+  --color-green-dark: var(--green-dark);
+  --color-green-mid: var(--green-mid);
+  --color-green-light: var(--green-light);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-surface: var(--surface);
+  --color-surface-white: var(--surface-white);
+  --color-dark-bg: var(--dark-bg);
+  --color-brand-text: var(--brand-text);
+  --color-brand-text-secondary: var(--brand-text-secondary);
 }
 
 @layer base {
@@ -211,6 +236,15 @@
   }
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    font-family: var(--font-sans);
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-serif);
   }
 }
 
