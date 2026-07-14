@@ -72,6 +72,7 @@ export interface Config {
     news: News;
     alumni: Alumnus;
     events: Event;
+    donors: Donor;
     'team-members': TeamMember;
     'alumni-registrations': AlumniRegistration;
     media: Media;
@@ -99,6 +100,7 @@ export interface Config {
     news: NewsSelect<false> | NewsSelect<true>;
     alumni: AlumniSelect<false> | AlumniSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    donors: DonorsSelect<false> | DonorsSelect<true>;
     'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
     'alumni-registrations': AlumniRegistrationsSelect<false> | AlumniRegistrationsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -126,6 +128,7 @@ export interface Config {
     aboutPage: AboutPage;
     servicesPage: ServicesPage;
     eventsPage: EventsPage;
+    donorsPage: DonorsPage;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -134,6 +137,7 @@ export interface Config {
     aboutPage: AboutPageSelect<false> | AboutPageSelect<true>;
     servicesPage: ServicesPageSelect<false> | ServicesPageSelect<true>;
     eventsPage: EventsPageSelect<false> | EventsPageSelect<true>;
+    donorsPage: DonorsPageSelect<false> | DonorsPageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -924,6 +928,18 @@ export interface Event {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donors".
+ */
+export interface Donor {
+  id: number;
+  name: string;
+  tier: 'gold' | 'silver' | 'bronze';
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team-members".
  */
 export interface TeamMember {
@@ -1190,6 +1206,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'events';
         value: number | Event;
+      } | null)
+    | ({
+        relationTo: 'donors';
+        value: number | Donor;
       } | null)
     | ({
         relationTo: 'team-members';
@@ -1495,6 +1515,17 @@ export interface EventsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donors_select".
+ */
+export interface DonorsSelect<T extends boolean = true> {
+  name?: T;
+  tier?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2261,6 +2292,67 @@ export interface EventsPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donorsPage".
+ */
+export interface DonorsPage {
+  id: number;
+  pageHeader: {
+    caption?: string | null;
+    title: string;
+    description?: string | null;
+  };
+  introTitle?: string | null;
+  introBody?: string | null;
+  categories?:
+    | {
+        heading: string;
+        body?: string | null;
+        amounts?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  honorRollCaption?: string | null;
+  honorRollTitle?: string | null;
+  honorRollDescription?: string | null;
+  ctaBand: {
+    heading?: string | null;
+    description?: string | null;
+    primaryCta: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+    secondaryCta: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2455,6 +2547,59 @@ export interface EventsPageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
       };
+  ctaBand?:
+    | T
+    | {
+        heading?: T;
+        description?: T;
+        primaryCta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        secondaryCta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donorsPage_select".
+ */
+export interface DonorsPageSelect<T extends boolean = true> {
+  pageHeader?:
+    | T
+    | {
+        caption?: T;
+        title?: T;
+        description?: T;
+      };
+  introTitle?: T;
+  introBody?: T;
+  categories?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        amounts?: T;
+        id?: T;
+      };
+  honorRollCaption?: T;
+  honorRollTitle?: T;
+  honorRollDescription?: T;
   ctaBand?:
     | T
     | {
