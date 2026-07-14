@@ -71,6 +71,7 @@ export interface Config {
     posts: Post;
     news: News;
     alumni: Alumnus;
+    events: Event;
     'team-members': TeamMember;
     'alumni-registrations': AlumniRegistration;
     media: Media;
@@ -97,6 +98,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
     alumni: AlumniSelect<false> | AlumniSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
     'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
     'alumni-registrations': AlumniRegistrationsSelect<false> | AlumniRegistrationsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -123,6 +125,7 @@ export interface Config {
     homePage: HomePage;
     aboutPage: AboutPage;
     servicesPage: ServicesPage;
+    eventsPage: EventsPage;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -130,6 +133,7 @@ export interface Config {
     homePage: HomePageSelect<false> | HomePageSelect<true>;
     aboutPage: AboutPageSelect<false> | AboutPageSelect<true>;
     servicesPage: ServicesPageSelect<false> | ServicesPageSelect<true>;
+    eventsPage: EventsPageSelect<false> | EventsPageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -881,6 +885,45 @@ export interface Alumnus {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: number;
+  title: string;
+  image?: (number | null) | Media;
+  startDate: string;
+  endDate?: string | null;
+  location?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Show as the featured event at the top of the events page.
+   */
+  featured?: boolean | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team-members".
  */
 export interface TeamMember {
@@ -1143,6 +1186,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'alumni';
         value: number | Alumnus;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: number | Event;
       } | null)
     | ({
         relationTo: 'team-members';
@@ -1425,6 +1472,24 @@ export interface AlumniSelect<T extends boolean = true> {
   featured?: T;
   order?: T;
   publishedAt?: T;
+  generateSlug?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  startDate?: T;
+  endDate?: T;
+  location?: T;
+  description?: T;
+  featured?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;
@@ -2148,6 +2213,54 @@ export interface ServicesPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventsPage".
+ */
+export interface EventsPage {
+  id: number;
+  pageHeader: {
+    caption?: string | null;
+    title: string;
+    description?: string | null;
+  };
+  ctaBand: {
+    heading?: string | null;
+    description?: string | null;
+    primaryCta: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+    secondaryCta: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2332,6 +2445,46 @@ export interface ServicesPageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventsPage_select".
+ */
+export interface EventsPageSelect<T extends boolean = true> {
+  pageHeader?:
+    | T
+    | {
+        caption?: T;
+        title?: T;
+        description?: T;
+      };
+  ctaBand?:
+    | T
+    | {
+        heading?: T;
+        description?: T;
+        primaryCta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        secondaryCta?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections_widget".
  */
 export interface CollectionsWidget {
@@ -2364,6 +2517,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'alumni';
           value: number | Alumnus;
+        } | null)
+      | ({
+          relationTo: 'events';
+          value: number | Event;
         } | null);
     global?: string | null;
     user?: (number | null) | User;

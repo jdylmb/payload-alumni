@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url'
 import { Alumni } from './collections/Alumni'
 import { AlumniRegistrations } from './collections/AlumniRegistrations'
 import { Categories } from './collections/Categories'
+import { Events } from './collections/Events'
 import { Media } from './collections/Media'
 import { News } from './collections/News'
 import { Pages } from './collections/Pages'
@@ -16,6 +17,7 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { AboutPage } from './globals/AboutPage/config'
+import { EventsPage } from './globals/EventsPage/config'
 import { HomePage } from './globals/HomePage/config'
 import { ServicesPage } from './globals/ServicesPage/config'
 import { plugins } from './plugins'
@@ -74,6 +76,7 @@ export default buildConfig({
     Posts,
     News,
     Alumni,
+    Events,
     TeamMembers,
     AlumniRegistrations,
     Media,
@@ -81,7 +84,7 @@ export default buildConfig({
     Users,
   ],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, HomePage, AboutPage, ServicesPage],
+  globals: [Header, Footer, HomePage, AboutPage, ServicesPage, EventsPage],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,
