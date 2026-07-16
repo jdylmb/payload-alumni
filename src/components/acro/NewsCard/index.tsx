@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 import type { News } from '@/payload-types'
 
@@ -7,13 +8,16 @@ import { categoryLabel, formatDate } from '../utils'
 
 export const NewsCard: React.FC<{ item: News }> = ({ item }) => {
   return (
-    <article className="flex flex-col overflow-hidden bg-surface-white shadow-sm">
+    <Link
+      href={`/news/${item.slug}`}
+      className="group flex flex-col overflow-hidden bg-surface-white shadow-sm transition-shadow hover:shadow-lg"
+    >
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-green-light">
         {item.coverImage && typeof item.coverImage === 'object' && (
           <Media
             resource={item.coverImage}
             fill
-            imgClassName="object-cover"
+            imgClassName="object-cover transition-transform duration-300 group-hover:scale-105"
             pictureClassName="absolute inset-0 h-full w-full"
           />
         )}
@@ -25,26 +29,31 @@ export const NewsCard: React.FC<{ item: News }> = ({ item }) => {
             <span className="text-brand-text-secondary">{formatDate(item.publishedAt)}</span>
           )}
         </div>
-        <h3 className="font-serif text-lg font-bold leading-snug text-brand-text">{item.title}</h3>
+        <h3 className="font-serif text-lg font-bold leading-snug text-brand-text transition-colors group-hover:text-green-dark">
+          {item.title}
+        </h3>
         {item.excerpt && (
           <p className="line-clamp-3 text-sm leading-relaxed text-brand-text-secondary">
             {item.excerpt}
           </p>
         )}
       </div>
-    </article>
+    </Link>
   )
 }
 
 export const FeaturedNewsCard: React.FC<{ item: News }> = ({ item }) => {
   return (
-    <article className="grid grid-cols-1 overflow-hidden bg-surface-white shadow-sm md:grid-cols-2">
+    <Link
+      href={`/news/${item.slug}`}
+      className="group grid grid-cols-1 overflow-hidden bg-surface-white shadow-sm transition-shadow hover:shadow-lg md:grid-cols-2"
+    >
       <div className="relative min-h-[260px] w-full overflow-hidden bg-green-light md:min-h-[340px]">
         {item.coverImage && typeof item.coverImage === 'object' && (
           <Media
             resource={item.coverImage}
             fill
-            imgClassName="object-cover"
+            imgClassName="object-cover transition-transform duration-300 group-hover:scale-105"
             pictureClassName="absolute inset-0 h-full w-full"
           />
         )}
@@ -56,13 +65,13 @@ export const FeaturedNewsCard: React.FC<{ item: News }> = ({ item }) => {
             <span className="text-brand-text-secondary">{formatDate(item.publishedAt)}</span>
           )}
         </div>
-        <h3 className="font-serif text-2xl font-bold leading-snug text-brand-text md:text-3xl">
+        <h3 className="font-serif text-2xl font-bold leading-snug text-brand-text transition-colors group-hover:text-green-dark md:text-3xl">
           {item.title}
         </h3>
         {item.excerpt && (
           <p className="text-[15px] leading-relaxed text-brand-text-secondary">{item.excerpt}</p>
         )}
       </div>
-    </article>
+    </Link>
   )
 }

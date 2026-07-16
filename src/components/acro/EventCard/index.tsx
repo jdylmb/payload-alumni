@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { CalendarDays, MapPin } from 'lucide-react'
 
 import type { Event } from '@/payload-types'
@@ -8,13 +9,16 @@ import { formatDate } from '../utils'
 
 export const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   return (
-    <article className="flex flex-col overflow-hidden bg-surface-white shadow-sm">
+    <Link
+      href={`/events/${event.slug}`}
+      className="group flex flex-col overflow-hidden bg-surface-white shadow-sm transition-shadow hover:shadow-lg"
+    >
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-green-light">
         {event.image && typeof event.image === 'object' && (
           <Media
             resource={event.image}
             fill
-            imgClassName="object-cover"
+            imgClassName="object-cover transition-transform duration-300 group-hover:scale-105"
             pictureClassName="absolute inset-0 h-full w-full"
           />
         )}
@@ -24,7 +28,9 @@ export const EventCard: React.FC<{ event: Event }> = ({ event }) => {
           <CalendarDays className="h-4 w-4" />
           <span>{formatDate(event.startDate)}</span>
         </div>
-        <h3 className="font-serif text-lg font-bold leading-snug text-brand-text">{event.title}</h3>
+        <h3 className="font-serif text-lg font-bold leading-snug text-brand-text transition-colors group-hover:text-green-dark">
+          {event.title}
+        </h3>
         {event.location && (
           <div className="flex items-center gap-1.5 text-sm text-brand-text-secondary">
             <MapPin className="h-4 w-4 shrink-0" />
@@ -32,6 +38,6 @@ export const EventCard: React.FC<{ event: Event }> = ({ event }) => {
           </div>
         )}
       </div>
-    </article>
+    </Link>
   )
 }

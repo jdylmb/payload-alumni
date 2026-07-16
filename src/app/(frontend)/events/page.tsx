@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
+import Link from 'next/link'
 import { CalendarDays, MapPin } from 'lucide-react'
 import React from 'react'
 
@@ -71,13 +72,16 @@ export default async function EventsPage() {
 
       {featured && (
         <section className="bg-surface-white">
-          <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 md:grid-cols-2">
+          <Link
+            href={`/events/${featured.slug}`}
+            className="group mx-auto grid w-full max-w-[1440px] grid-cols-1 md:grid-cols-2"
+          >
             <div className="relative min-h-[320px] w-full overflow-hidden bg-green-light md:min-h-[480px]">
               {featured.image && typeof featured.image === 'object' && (
                 <Media
                   resource={featured.image}
                   fill
-                  imgClassName="object-cover"
+                  imgClassName="object-cover transition-transform duration-300 group-hover:scale-105"
                   pictureClassName="absolute inset-0 h-full w-full"
                 />
               )}
@@ -101,7 +105,7 @@ export default async function EventsPage() {
                 </div>
               ) : null}
             </div>
-          </div>
+          </Link>
         </section>
       )}
 
